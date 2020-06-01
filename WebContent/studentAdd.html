@@ -10,32 +10,31 @@
 	
 	<H2>Add Student</H2>
 	
-	<form action="/studentAdd.js" method="post"> 
-	
-		
+	<form action="/WebAppExercises/addStudent" name="formStudent" method="POST"> 
 		<label> Id: </label> 
-		<input type="text" id="txtId" name="id" />	<br/>
+		<input type="text" id="txtId" name="txtId" />	<br/> <br/>
 		
 		<label> Last name: </label> 
-		<input type="text" id="txtlastName" name="txtlastName" />	<br/>
+		<input type="text" id="txtlastName" name="txtlastName" />	<br/> <br/>
 		
 		<label> First name: </label> 
-		<input type="text" id="txtfirstName" name="txtfirstName" />	<br/>
+		<input type="text" id="txtfirstName" name="txtfirstName" />	<br/> <br/>
 		
 		<label> Street: </label> 
-		<input type="text" id="txtStreet" name="txtStreet" />	<br/>
+		<input type="text" id="txtStreet" name="txtStreet" />	<br/> <br/>
 		
 		<label> Postcode: </label> 
-		<input type="text" id="txtPostcode" name="txtPostcode" />	<br/>
+		<input type="text" id="txtPostcode" name="txtPostcode" />	<br/> <br/>
 		
 		<label> Post office: </label> 
 		<input type="text" id="txtPostoffice" name="txtPostoffice" /> <br/> <br/> 
 		
 					
-		<input type="button" value="Add" onClick="" />
+		<input type="button" value="Add" onClick="functioncall()" />
 		
 		<input type="button" value="Cancel" onClick="" />
 		
+		<input type="submit" value="submit"  />
 
 	</form>
 	

@@ -35,14 +35,49 @@ public class StudentAddServlet extends HttpServlet {
 		
 		
 		StudentDAO studentDAO = new StudentDAO();
-		List<Student> studentList = studentDAO.getAllStudents();
+		
+		String idText = request.getParameter("id");
+		String firstNameText = request.getParameter("firstname");
+		String lastNameText = request.getParameter("lastname");
+		String streetaddressText = request.getParameter("street");
+		
+		String postcodeText = request.getParameter("postcode");
+		String postofficeText = request.getParameter("postoffice");
+		
+		int studentId = -1;
+		int postcode = -1;
+		
+		if (idText != null) {
+			try {
+				studentId = Integer.parseInt(idText);
+			} catch (Exception ex) { }
+		}
+		
+		if (postcodeText != null) {
+			try {
+				postcode = Integer.parseInt(postcodeText);
+			} catch (Exception ex) { }
+		}
+		
+		Student newStudent = new Student(studentId, firstNameText, lastNameText, streetaddressText, postcode, postofficeText);
+
+		int returnInt = studentDAO.insertStudent(newStudent);
+		String message = " ";
+		
+		
+		if(returnInt == 0) {
+			message = ("Student data added!");
+		} else if(returnInt == 1) {
+			message = ("Cannot add the student "+ studentId + " The id is already existed....");
+		} else if(returnInt == -1) {
+			message = ("The database is temporarily unavailable. Please try again later...");
+		}
+		
 		
 		Gson gson = new Gson();
-		String json = gson.toJson(studentList);
+		String json = gson.toJson(newStudent);
 		out.print(json);
-		
-
-		
+	
 	}
 
 	/**

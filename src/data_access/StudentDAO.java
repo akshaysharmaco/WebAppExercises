@@ -170,6 +170,76 @@ public class StudentDAO {
 		return studentList;
 	}
 	
+	
+	public int insertStudent(Student student) {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		try {
+			connection = openConnection();
+
+			String sqlText = "INSERT INTO Student (id, firstname, lastname, streetaddress, postcode, postoffice) VALUES (?, ?, ?, ?, ?, ?)";
+			
+			preparedStatement = connection.prepareStatement(sqlText);
+			
+			
+			preparedStatement.setInt(1, student.getId());
+			preparedStatement.setString(2, student.getFirstname());
+			preparedStatement.setString(3, student.getLastname());
+			preparedStatement.setString(4, student.getStreetaddress());
+			preparedStatement.setInt(5, student.getPostcode());
+			preparedStatement.setString(6, student.getPostoffice());
+
+			preparedStatement.executeUpdate();
+			
+			return 0;
+	
+
+		} catch (SQLException sqle) {
+				if (sqle.getErrorCode() == ConnectionParameters.PK_VIOLATION_ERROR) {
+					return 1;
+			} else {	
+					return -1;
+			}
+		} finally {
+			DbUtils.closeQuietly(preparedStatement, connection);
+		}
+		
+	}
+	
+	
+	public Student deleteStudent(int studentId) {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+
+		try {
+			connection = openConnection();
+
+			String sqlText = "DELETE FROM Student WHERE id = ?";
+			
+			preparedStatement = connection.prepareStatement(sqlText);
+			
+			
+			preparedStatement.setInt(1, studentId);
+
+			resultSet = preparedStatement.executeQuery();
+			
+	
+
+		} catch (SQLException sqle) {
+			System.out.println("\n[ERROR] Database error. " + sqle.getMessage());
+		} finally {
+			DbUtils.closeQuietly(resultSet, preparedStatement, connection);
+		}
+		return null;
+		
+
+	}
+	
 }
 	
 	
